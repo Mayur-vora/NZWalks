@@ -31,7 +31,10 @@ namespace NZWalks.API.Controllers
 
         public IActionResult GetById([FromRoute] Guid id)
         {
-            var region = dbContext.Regions.Find(id);
+            //var region = dbContext.Regions.Find(id);
+            //"Find" can only be used withe primary keys so we can just use the method with keys
+
+            var region = dbContext.Regions.FirstOrDefault(x => x.Id == id);
 
             if (region == null)
             {
