@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 
 namespace NZWalks.API.Controllers
@@ -9,31 +10,36 @@ namespace NZWalks.API.Controllers
     [ApiController]
     public class RegionsController : ControllerBase
     {
+        private readonly NZWalksDbContext dbContext;
+        public RegionsController(NZWalksDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         //GET ALL REGIONS
-        //GET: https://localhost:port_number/api/regions
+        //GET: https://localhost:port_number/api/regions    
         [HttpGet]
         public IActionResult GetAll()
         {
-            var regions = new List<Region>
-            {
-                new Region
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Aukland Region",
-                    Code = "AKL",
-                    RegionImageUrl = "https://www.leeabbamonte.com/wp-content/uploads/2016/02/IMG_4179.jpg"
-                },
-                new Region
-                {
-                     Id = Guid.NewGuid(),
-                    Name = "Wellington Region",
-                    Code = "WLG",
-                    RegionImageUrl = "https://www.wallpapers-for-desktop.eu/desktop/8203-panorama-city-new-of-wellington-8203-zeland.jpg"
-                },
-
-            };
-
+            var regions = dbContext.Regions.ToList();           
             return Ok(regions);
         }
+
+        //GET SINGLE REGION (Get Region By Id)
+        //GET:  https://localhost:port_number/api/regions/{id}
+        [HttpGet]
+        [Route("{id}")]
+
+        public IActionResult GetById([FromRoute] Guid id)
+        {
+            var region = dbContext.Regions.Find(id);
+
+            if (region == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(region);
+        }
     }
+
 }
