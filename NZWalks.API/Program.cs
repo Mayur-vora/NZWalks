@@ -16,6 +16,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnectio
 // we can change the implementation as we created an inmemory region implementation as well as 
 // builder.Services.AddScoped<IRegionRepository, InMemoryRegionRepository>();
 builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
+builder.Services.AddScoped<IWalkReposotory, SQLWalkRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
