@@ -76,7 +76,7 @@ namespace NZWalks.API.Controllers
             // Map DTO to Domain Model
             var walkDomainModel = mapper.Map<Walk>(updateWalkRequestDto);
 
-            await walkReposotory.UpdateAsync(id, walkDomainModel);
+            walkDomainModel = await walkReposotory.UpdateAsync(id, walkDomainModel);
 
             if (walkDomainModel == null)
             {
