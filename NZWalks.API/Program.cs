@@ -20,6 +20,7 @@ builder.Services.AddScoped<IWalkReposotory, SQLWalkRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

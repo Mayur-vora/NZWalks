@@ -76,7 +76,7 @@ namespace NZWalks.API.Controllers
             // Map DTO to Domain Model
             var walkDomainModel = mapper.Map<Walk>(updateWalkRequestDto);
 
-            await walkReposotory.UpdateAsync(id, walkDomainModel);
+            walkDomainModel = await walkReposotory.UpdateAsync(id, walkDomainModel);
 
             if (walkDomainModel == null)
             {
@@ -85,6 +85,23 @@ namespace NZWalks.API.Controllers
 
             // Map Domain model to DTO
             return Ok(mapper.Map<WalkDto>(walkDomainModel));
+        }
+
+        // Delete a Walk by Id
+        // DELETE: api/walks/{id}
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+        {
+            var deletedWalkDomainModel = await walkReposotory.DeleteAsync(id);
+
+            if (deletedWalkDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            // Map Domain Model to DTO 
+            return Ok(mapper.Map<WalkDto>(deletedWalkDomainModel)) ;
         }
 
     }
