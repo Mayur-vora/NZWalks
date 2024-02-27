@@ -43,6 +43,7 @@ namespace NZWalks.API.Repositories
             var walks = dbContext.Walks.Include("Difficulty").Include("Region").AsQueryable();
 
             //Filtering
+
             if (String.IsNullOrWhiteSpace(filterOn) == false && String.IsNullOrWhiteSpace(filterQuery) == false)
             {
                 if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
