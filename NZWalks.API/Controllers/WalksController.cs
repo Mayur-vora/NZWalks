@@ -43,9 +43,9 @@ namespace NZWalks.API.Controllers
 
 
         // Get Walks
-        // Get: /api/walks
+        // Get: /api/walks?filterOn=Name&filterQuery=Track
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] String? filterOn, [FromQuery] String? filterQuery)
         {
             var walksDomainModel = await walkReposotory.GetAllAsync();
 
