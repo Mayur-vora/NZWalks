@@ -47,13 +47,13 @@ namespace NZWalks.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery] String? filterOn, [FromQuery] String? filterQuery)
         {
-            var walksDomainModel = await walkReposotory.GetAllAsync();
+            var walksDomainModel = await walkReposotory.GetAllAsync(filterOn, filterQuery);
 
             //Map Domain Model to DTO
             return Ok(mapper.Map<List<WalkDto>>(walksDomainModel));
         }
 
-        // Get Walk by Id
+        // Get Walk by Idfil
         // GET: /api/Walks/{id}
         [HttpGet]
         [Route("{id:Guid}")]
